@@ -8,6 +8,8 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { ThreadValidation } from "@/lib/validations/thread";
 
+import { useOrganization } from "@clerk/nextjs";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -41,6 +43,8 @@ function PostThread({ userId }: { userId: string }) {
   const pathname = usePathname();
   const router = useRouter();
 
+  const { organization } = useOrganization();
+
   const form = useForm({
     resolver: zodResolver(ThreadValidation),
     defaultValues: {
@@ -53,7 +57,7 @@ function PostThread({ userId }: { userId: string }) {
     await createThread({
       text: values.thread,
       author: userId,
-      communityId: null,
+      communityId: organization ? organization.id : null,
       path: pathname,
     });
 
@@ -75,10 +79,7 @@ function PostThread({ userId }: { userId: string }) {
                 Content
               </FormLabel>
               <FormControl className="no-focus border-dark-4 bg-dark-3 text-light-1 ">
-                <Textarea
-                  rows={15}
-                  {...field}
-                />
+                <Textarea rows={15} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
