@@ -4,7 +4,7 @@ import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-async function Home({
+export default async function Home({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
