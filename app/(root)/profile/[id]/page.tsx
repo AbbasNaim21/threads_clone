@@ -8,6 +8,7 @@ import ThreadsTab from "@/components/shared/ThreadsTab";
 
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
