@@ -18,7 +18,6 @@ interface Props {
     name: string;
     image: string;
   } | null;
-
   createdAt: string;
   comments: {
     author: {
@@ -111,6 +110,7 @@ const ThreadCard = ({
             </div>
           </div>
         </div>
+
         <DeleteThread
           threadId={JSON.stringify(id)}
           currentUserId={currentUserId}
@@ -118,6 +118,7 @@ const ThreadCard = ({
           parentId={parentId}
           isComment={isComment}
         />
+        
       </div>
 
       {!isComment && comments.length > 0 && (
@@ -140,14 +141,17 @@ const ThreadCard = ({
           </Link>
         </div>
       )}
+
       {!isComment && community && (
         <Link
           href={`/communities/${community.id}`}
           className="mt-5 flex items-center"
         >
           <p className="text-subtle-medium text-gray-1">
-            {formatDateString(createdAt)} - {community.name} Community
+            {formatDateString(createdAt)}
+            {community && ` - ${community.name} Community `}
           </p>
+
           <Image
             src={community.image}
             alt={community.name}
